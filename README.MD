@@ -1,0 +1,1 @@
+This is Wszystko.pl one way integration with Allegro.
