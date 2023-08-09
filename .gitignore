@@ -1,0 +1,10 @@
+__pycache__/
+
+# file that have all important and unique keys
+config.py
+
+# environtment folder
+venv
+
+# file for testing purpose
+test.py
