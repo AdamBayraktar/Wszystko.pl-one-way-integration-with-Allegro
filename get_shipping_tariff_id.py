@@ -1,6 +1,6 @@
 import requests 
 from get_access_token import get_access_token
-from custom_exceptions import shippingTariffIdError
+from custom_exceptions import shippingPoliciesTariffIdError
 
 URL = "https://wszystko.pl/api"
 
@@ -30,7 +30,7 @@ def get_shipping_tariff_ids(access_token):
         return ids_list
     else:
         error_msg = f'Something went wrong while obtaining the IDs of shipping tariff. Please check the message:\n{r}\n {r.text}'
-        raise shippingTariffIdError(error_msg)
+        raise shippingPoliciesTariffIdError(error_msg)
         
         
         
