@@ -1,6 +1,6 @@
 import requests 
 from get_access_token import get_access_token
-from custom_exceptions import guaranteeIdError
+from custom_exceptions import guaranteePoliciesIdError
 
 URL = "https://wszystko.pl/api"
 
@@ -30,7 +30,7 @@ def get_guarantee_policies_ids(access_token):
         return ids_list
     else:
         error_msg = f'Something went wrong while obtaining the IDs of guarantee policies. Please check the message:\n{r}\n {r.text}'
-        raise guaranteeIdError(error_msg)
+        raise guaranteePoliciesIdError(error_msg)
         
         
         
