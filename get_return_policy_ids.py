@@ -29,7 +29,8 @@ def get_return_policies_ids(access_token):
             ids_list.append(policy['id'])
         return ids_list
     else:
-        raise returnPoliciesIdError(f'Something went wrong while obtaining the IDs of return policies. Please check the message: {r}\n {r.text}')
+        error_msg = f'Something went wrong while obtaining the IDs of return policies. Please check the message:\n{r}\n {r.text}'
+        raise returnPoliciesIdError(error_msg)
         
         
         
