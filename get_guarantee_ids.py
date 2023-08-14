@@ -6,11 +6,11 @@ URL = "https://wszystko.pl/api"
 
 def main():
     access_token = get_access_token()
-    id_list = get_guarantee_ids(access_token)
+    id_list = get_guarantee_policies_ids(access_token)
     print(id_list)
     
 
-def get_guarantee_ids(access_token):
+def get_guarantee_policies_ids(access_token):
     """Get list of IDs of guarantee policies
 
     Args:
