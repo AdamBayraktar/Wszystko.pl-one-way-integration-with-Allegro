@@ -15,3 +15,6 @@ class shippingPoliciesTariffIdError(Exception):
 
 class complaintPoliciesIdError(Exception):
     pass
+
+class getSessionsError(Exception):
+    pass
