@@ -21,15 +21,15 @@ def get_complaint_policies_ids(access_token):
     """
     END_POINT = "/me/complaintPolicies"
     headers = {'Authorization': f'Bearer {access_token}'}
-    r = requests.get(URL + END_POINT, headers=headers)
-    if r.status_code == 200:
+    response = requests.get(URL + END_POINT, headers=headers)
+    if response.status_code == 200:
         ids_list = []
-        all_policies = r.json()
+        all_policies = response.json()
         for policy in all_policies:
             ids_list.append(policy['id'])
         return ids_list
     else:
-        error_msg = f'Something went wrong while obtaining the IDs of complaint policies. Please check the message:\n{r}\n {r.text}'
+        error_msg = f'Something went wrong while obtaining the IDs of complaint policies. Please check the message:\n{response}\n {response.text}'
         raise complaintPoliciesIdError(error_msg)
         
         
