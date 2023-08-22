@@ -6,6 +6,9 @@ config.py
 # environtment folder
 venv
 
+# file that contains infromation about your mapping Allegro categories with Wszystko.pl categories
+mapping_template.py
+
 # file for testing purpose
 test.py
 test_free.py
