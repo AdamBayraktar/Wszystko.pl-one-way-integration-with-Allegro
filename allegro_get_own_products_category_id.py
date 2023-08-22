@@ -11,7 +11,7 @@ def main():
     
 
 
-def get_products_main_info(access_token, lower_price=0, upper_price=1000, limit=1000):
+def get_products_main_info(access_token:str, lower_price:int=0, upper_price:int=1000, limit:int=1000) -> list[dict]:
     """Get main information about your products. Maximum number of returned products is 1000. If you have more than 1000 products, you can send multiple requests, each with a different set of 'lower_price' and 'upper_price' arguments, in order to retrieve all of the products.
 
     Args:
@@ -38,7 +38,7 @@ def get_products_main_info(access_token, lower_price=0, upper_price=1000, limit=
 
 
 # gets all user's products and return list of products id
-def all_own_category_id(access_token):
+def all_own_category_id(access_token: str) -> list[str]:
     """Request main info for each product on Allegro. Takes the category ID from each product and returns list of unique category IDs.
 
     Args:
