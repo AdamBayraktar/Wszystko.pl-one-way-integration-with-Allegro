@@ -18,3 +18,6 @@ class complaintPoliciesIdError(Exception):
 
 class getSessionsError(Exception):
     pass
+
+class getImgUrlError(Exception):
+    pass
