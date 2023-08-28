@@ -21,3 +21,6 @@ class getSessionsError(Exception):
 
 class getImgUrlError(Exception):
     pass
+
+class getCategoryError(Exception):
+    pass
