@@ -18,6 +18,7 @@ def main():
         category_page = get_all_categories(access_token, page_num)
         if category_page:
             all_categories.extend(category_page)
+    print("It may take up to 5 minutes")
     for cat in all_categories:
         if cat['hasSubcategories'] == False:
             the_category = {
@@ -39,6 +40,9 @@ def main():
     
 def save_file(data, file_name):
     with open(file_name, "w", encoding='utf-8') as file:
+        file.write('Use below categories ID to map with categories from Allegro.\n')
+        file.write('Complete mapping_template.py with category IDs and optionally with the category names.\n')
+        file.write('There are more than 13 000 categories with no subcategories, therefore use search command (CTRL + F) to find the appropriate category\n')
         for cat in data:
             json.dump(cat, file, ensure_ascii=False)
             file.write('\n')
