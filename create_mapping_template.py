@@ -44,7 +44,8 @@ def write_to_python_file_as_variable(mapping_template: list, file_name:str='mapp
         file_name (str, optional): The name of the created file. Defaults to 'mapping_template.py'.
     """    
     with open(file_name, 'w', encoding="utf-8") as file:
-        file.write("\"Complete each row with the missing data. Each row\'s \'wszystko_id\' key must have wszystko.pl category ID that matches to the corresponding allegro category ID.\"\n\n\n")
+        file.write("\"Complete each row with the missing \'wszystko_id\' value. It must have wszystko.pl category ID that matches to the corresponding allegro category ID.\"\n")
+        file.write("\"The categories names on both platform are the same.\"\n\n\n")
         file.write("mapping_template_name = [\n")
         for category in mapping_template:
             file.write(f'    {category},\n')
