@@ -1,4 +1,4 @@
-"This is completed mapping template."
+"This is completed mapping template. Use it as example. Remember to create your own mapping template, because it differs than this example"
 
 
 mapping_template_name = [
