@@ -48,7 +48,6 @@ def all_products_id(access_token:str, price_range:list[int]=[9, 14, 17, 20]) -> 
     """   
     all_products = []
     # max limit products per request is 1000 therefore to get all products send requests for different range of prices
-    # for price in price_range
     for index,price in enumerate(price_range):
         if index == 0:
             all_products.extend(get_products_main_info(access_token, upper_price=price))
