@@ -8,7 +8,8 @@ class NewWszystkoplProduct:
         self.category_id = self.__get_category_id(my_mapping_template, allegro_product['category']['id'])
         self.name = allegro_product['name']
         self.old_images_to_new = add_image(wszystkopl_access_token, allegro_product['images'])
-        self.images = [img for img in self.old_images_to_new.values()]
+        # self.images = [img for img in self.old_images_to_new.values()]
+        self.images = [list(img.values())[0] for img in self.old_images_to_new]
         self.description = self.__adjust_scheme_description(allegro_product["description"]['sections'])
         self.ean = self.__set_parameter(allegro_product, "EAN (GTIN)")
         self.sku = self.__set_parameter(allegro_product, "Kod producenta")
@@ -77,7 +78,9 @@ class NewWszystkoplProduct:
                         # create 'value' key with the value of content | url key
                         if the_key == "url":
                         # update allegro img with the new url
-                            new_item["value"] = self.old_images_to_new[value]
+                            for img_dict in self.old_images_to_new:
+                                if img_dict.get(value):
+                                    new_item["value"] = img_dict[value]
                         else:
                             new_item["value"] = value
                     else:
