@@ -6,11 +6,11 @@ URL = "https://wszystko.pl/api"
 
 def main():
     access_token = get_access_token()
-    new_url = add_image(access_token, ['https://alemozgoldenrose.pl/632-tm_thickbox_default/002-woman.jpg', 'https://alemozgoldenrose.pl/1315-tm_thickbox_default/perfect-nail-color-nude-look-lakier-do-paznokci-golden-rose.jpg'])
+    new_url = add_image(access_token, ['https://alemozgoldenrose.pl/632-tm_thickbox_default/002-woman.jpg', 'https://a.allegroimg.com/original/116e0f/9efd4f6e48f6a2003d9f4e633587'])
     print(new_url)
     
 
-def add_image(access_token:str, img_urls:list[str]) -> dict:
+def add_image(access_token:str, img_urls:list[str]) -> list[dict[str, str]]:
     """Add list of images to the service and get approved image url
 
     Args:
@@ -28,9 +28,12 @@ def add_image(access_token:str, img_urls:list[str]) -> dict:
     data = img_urls
     r = requests.post(URL + END_POINT, headers=headers, json=data)
     if r.status_code == 200:
-        new_img_urls = {}
-        for img in r.json():
-            new_img_urls[img['name']] = (img['url'])
+        new_img_urls = []
+        for old_img in data:
+            for img in r.json():
+                # new_img_urls[img['name']] = img['url']
+                if img['name'] == old_img:
+                    new_img_urls.append({img['name']:img['url']})
         print(r)
         print(r.text)
         return new_img_urls
