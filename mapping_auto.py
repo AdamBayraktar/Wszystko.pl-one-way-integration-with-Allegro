@@ -24,16 +24,34 @@ def main():
     write_it(mapped_categories, 'test_auto_mapping.py')
 
 
-def map_categories(allegro_categories: list[dict], wszystko_pl_categories: list[dict]):
+def map_categories(allegro_categories: list[dict], wszystko_pl_categories: list[dict]) -> list[dict]:
+    """Automatically map given allegro categories with wszystko.pl categories.
+    Not every category can be automatically mapped, therefore after execution of the function,
+    check the output file for any TO DO cells. Use ctrl+f and search for "to do"
+
+    Args:
+        allegro_categories (list[dict]): list of dictionaries of used allegro categories
+        wszystko_pl_categories (list[dict]): list of all wszystko.pl categories
+
+    Returns:
+        list[dict]: list of dictionaries of mapped categories
+    """    
     mapped_categories = []
+    auto_map_count = 0
     for allegro_category in allegro_categories:
+        new_mapping = allegro_category
+        new_mapping['wszystko_id'] = "TO DO!!!!!!!!!!!"
+        new_mapping['wszystko_name'] = "TO DO!!!!!!!!!!!"
         for wszystko_pl_category in wszystko_pl_categories:
             if allegro_category['name'] == wszystko_pl_category['name'] and allegro_category['parent'] == wszystko_pl_category.get('parent', False):
-                new_mapping = allegro_category
                 new_mapping['wszystko_id'] = wszystko_pl_category['id']
                 new_mapping['wszystko_name'] = wszystko_pl_category['name']
-                mapped_categories.append(new_mapping)
+                auto_map_count += 1
                 break
+        mapped_categories.append(new_mapping)
+    print(f"The length of your allegro categories {len(allegro_categories)}")
+    print(f"The length of your mapped categories {len(mapped_categories)}")
+    print(f"The number of auto mapped categories {auto_map_count}")
     return mapped_categories
     
 
