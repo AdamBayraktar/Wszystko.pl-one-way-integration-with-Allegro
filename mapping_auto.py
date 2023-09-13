@@ -4,7 +4,7 @@ from create_mapping_template import create_mapping_template
 from allegro_get_own_products_category_id import all_own_category_id
 from get_all_categories_without_subcategories import get_all_categories_without_subcategories
 # use a variable that holds categories data
-from test_categories import wszystko_pl_categories_test
+from variables.mapping_all_wszystko_categories import all_wszystko_categories
 
 
 def main():
@@ -20,11 +20,11 @@ def main():
 
     # or
     # you can first create a variable with categories and then use it here
-    wszystko_pl_categories = wszystko_pl_categories_test
+    wszystko_pl_categories = all_wszystko_categories
 
     # connect allegro categories with wszystkopl categories by category name and it's parrent name
     mapped_categories = map_categories(allegro_categories, wszystko_pl_categories)
-    write_it(mapped_categories, 'test_auto_mapping.py')
+    write_it(mapped_categories, 'variables/mapping_auto_template_to_do.py')
 
 
 def map_categories(allegro_categories: list[dict], wszystko_pl_categories: list[dict]) -> list[dict]:
