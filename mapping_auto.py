@@ -3,8 +3,9 @@ from get_access_token import get_access_token
 from create_mapping_template import create_mapping_template
 from allegro_get_own_products_category_id import all_own_category_id
 from get_all_categories_without_subcategories import get_all_categories_without_subcategories
-# delete it after
+# use a variable that holds categories data
 from test_categories import wszystko_pl_categories_test
+
 
 def main():
     wszystko_access_token = get_access_token()
@@ -14,9 +15,11 @@ def main():
     allegro_categories = create_mapping_template(allegro_access_token, all_allegro_id)
 
     # get all wszystko pl categories [category name, parent name]
+    # it will be a long process
     # wszystko_pl_categories = get_all_categories_without_subcategories(wszystko_access_token)
 
-    # for the time use hard written variable
+    # or
+    # you can first create a variable with categories and then use it here
     wszystko_pl_categories = wszystko_pl_categories_test
 
     # connect allegro categories with wszystkopl categories by category name and it's parrent name
