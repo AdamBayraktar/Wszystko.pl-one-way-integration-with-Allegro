@@ -60,7 +60,7 @@ def map_categories(allegro_categories: list[dict], wszystko_pl_categories: list[
 
 def write_it(file, file_name):
     with open(file_name, 'w', encoding='utf-8') as f:
-        f.write(f'categories = {file}')
+        f.write(f'mapped_categories = {file}')
         
 
 if __name__ == "__main__":
