@@ -40,8 +40,7 @@ def get_all_categories_without_subcategories(access_token:str) -> list[dict]:
                 # get parent info
                 parent_category = get_category(access_token, cat['parentId'])
                 all_parents[cat['parentId']] = parent_category['name']
-            else:
-                the_category['parent'] = all_parents[cat['parentId']]
+            the_category['parent'] = all_parents[cat['parentId']]
             all_categories_without_subcategories.append(the_category)
     return all_categories_without_subcategories
             
