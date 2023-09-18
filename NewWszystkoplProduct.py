@@ -1,4 +1,4 @@
-from mapping_template import mapping_template_name as my_mapping_template
+from variables.mapping_auto_template_finished import mapped_categories as my_mapping_template
 from get_image_url import add_image
 
 class NewWszystkoplProduct:
