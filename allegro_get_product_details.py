@@ -4,10 +4,10 @@ from allegro_get_products_main_info import all_products_id
 
 requests.packages.urllib3.disable_warnings()
 
-# main function that first request all products of user then uses IDs of products to get detailed information about product
+
 def main():
     access_token = get_token()
-    example = all_product_detail(access_token)
+    example = all_product_detail(access_token, [True, 4])
     print(example)
 
 
@@ -331,21 +331,27 @@ def get_product_details(access_token, productId):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         return response.json()
-#to do
-def all_product_detail(access_token: str) -> tuple[list[dict], list] :
-    """Gets lists of all product detail and list of all product's ID
+
+
+def all_product_detail(access_token: str, get_fixed_number_product: list[bool, int]=[False, 0]) -> tuple[list[dict], list] :  
+    """Gets lists of all your products detail and list of all product's ID.
+    For testing purpose you can reduce number of requested products to fixed number.
+    By default there is no limitation.
 
     Args:
         access_token (str): unique token issued by Allegro. Use get_access_token_allegro module
+        get_fixed_number_product (list[bool, int], optional): If you want to reduce requested products to fixed number then add list where first item is True and the second item is the fixed number of products. Defaults to [False, 0].
 
     Returns:
         tuple[list[dict], list]: ([product details], [product IDs])
-    """   
+    """       
     # get all users product id
     all_id = all_products_id(access_token)
     all_id = list(set(all_id))
     all_product_detail_list = []
     # get each product with product id
+    if get_fixed_number_product[0]:
+        all_id = all_id[:get_fixed_number_product[1]]
     for id in all_id:
         all_product_detail_list.append(get_product_details(access_token, id))
     return all_product_detail_list, all_id
