@@ -19,7 +19,9 @@ def main():
     # wszystko_pl_categories = get_all_categories_without_subcategories(wszystko_access_token)
 
     # or
-    # you can first create a variable with categories and then use it here
+    # you can divide to 2 steps 
+    # first with using get_all_categories_without_subcategories function create a variable with all categories
+    # next import and use it here
     wszystko_pl_categories = all_wszystko_categories
 
     # connect allegro categories with wszystkopl categories by category name and it's parrent name
