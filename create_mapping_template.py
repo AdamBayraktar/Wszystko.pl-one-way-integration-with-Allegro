@@ -9,7 +9,7 @@ def main():
     access_token = get_token()
     id_list = all_own_category_id(access_token)
     mapping_template = create_mapping_template(access_token, id_list)
-    write_to_python_file_as_variable(mapping_template, 'mapping_template.py')
+    write_to_python_file_as_variable(mapping_template, 'variables/mapping_template.py')
         
 def create_mapping_template(access_token:str, allegro_id_list: list) -> list[dict]:
     """Create mapping template from Allegro category ID list
@@ -36,7 +36,7 @@ def create_mapping_template(access_token:str, allegro_id_list: list) -> list[dic
         mapping_template.append(mapping_category)
     return mapping_template
         
-def write_to_python_file_as_variable(mapping_template: list, file_name:str='mapping_template.py'):
+def write_to_python_file_as_variable(mapping_template: list, file_name:str):
     """Write data to file with py extension as a variable.
 
     Args:
@@ -44,7 +44,8 @@ def write_to_python_file_as_variable(mapping_template: list, file_name:str='mapp
         file_name (str, optional): The name of the created file. Defaults to 'mapping_template.py'.
     """    
     with open(file_name, 'w', encoding="utf-8") as file:
-        file.write("\"Complete each row with the missing \'wszystko_id\' value. It must have wszystko.pl category ID that matches to the corresponding allegro category ID.\"\n")
+        file.write("\"Complete each row with the missing \'wszystko_id\' value.\n It must have wszystko.pl category ID that matches to the corresponding allegro category ID.\"\n")
+        file.write("\"I suggest using auto mapping.")
         file.write("\"The categories names on both platform are the same.\"\n\n\n")
         file.write("mapping_template_name = [\n")
         for category in mapping_template:
