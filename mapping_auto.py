@@ -20,7 +20,7 @@ def main():
 
     # or
     # you can divide to 2 steps 
-    # first with using get_all_categories_without_subcategories function create a variable with all categories
+    # first with using mapping_create_file_with_all_wszystko_categories create a variable with all categories
     # next import and use it here
     wszystko_pl_categories = all_wszystko_categories
 
