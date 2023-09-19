@@ -12,6 +12,7 @@ def main():
             mapped_correctly = False
     if mapped_correctly:
         print('Everything is mapped correctly. You may proceed to the next step')
+        print(f"Total number of categories {len(mapped_categories)}")
 
 
 if __name__ == "__main__":
