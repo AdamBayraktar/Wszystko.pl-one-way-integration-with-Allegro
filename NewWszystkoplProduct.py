@@ -1,6 +1,7 @@
 from variables.mapping_auto_template_finished import mapped_categories as my_mapping_template
 from get_image_url import add_image
 
+
 class NewWszystkoplProduct:
     def __init__(self, wszystkopl_access_token, allegro_product):
         self.id = allegro_product['id']
@@ -43,6 +44,9 @@ class NewWszystkoplProduct:
         for param in parameters:
             if param.get("name") == name:
                 return param["values"][0]
+            else:
+                # some products might not have EAN
+                return 5901801109167 # random EAN
             
 
     def add_allegro_params(self, parameters):
