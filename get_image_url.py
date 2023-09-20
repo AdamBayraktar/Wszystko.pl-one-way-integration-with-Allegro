@@ -34,8 +34,6 @@ def add_image(access_token:str, img_urls:list[str]) -> list[dict[str, str]]:
                 # new_img_urls[img['name']] = img['url']
                 if img['name'] == old_img:
                     new_img_urls.append({img['name']:img['url']})
-        print(r)
-        print(r.text)
         return new_img_urls
     else:
         error_msg = f'Something went wrong while obtaining the new URL of the images that were sent. Please check the message:\n{r}\n {r.text}'
