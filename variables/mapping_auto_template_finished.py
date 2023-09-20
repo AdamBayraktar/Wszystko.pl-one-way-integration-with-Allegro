@@ -1,4 +1,7 @@
-from mapping_auto_template_to_do import mapped_categories as mapped_categories_to_do
+try:
+    from variables.mapping_auto_template_to_do import mapped_categories as mapped_categories_to_do
+except ModuleNotFoundError:
+    from mapping_auto_template_to_do import mapped_categories as mapped_categories_to_do
 # run file and check the output
 # if there is not mapped category then follow the instruction below
 # copy-paste variable from mapping_auto_template_to_do here and name it as mapped_categories
