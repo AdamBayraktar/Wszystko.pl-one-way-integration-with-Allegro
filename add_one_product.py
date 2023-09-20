@@ -17,11 +17,14 @@ def main():
     guarantee_police_id = get_guarantee_policies_ids(access_token)[0]
     return_police_id = get_return_policies_ids(access_token)[0]
     shipping_tariff_police_id = get_shipping_tariff_ids(access_token)[0]
-    # reduce to max 10 product, you are doing it for testing purpose
-    allegro_products, all_id = all_product_detail(allegro_access_token, get_fixed_number_product=[True,3])
-    for product in allegro_products:
-        print(product)
+    # reduce to max [MAX_PRODUCT_NUMBER] products, you are doing it for testing purpose
+    MAX_PRODUCT_NUMBER = 10
+    allegro_products, all_id = all_product_detail(allegro_access_token, get_fixed_number_product=[True,MAX_PRODUCT_NUMBER])
+    total_products_number = len(allegro_products)
+    for actual_product_number, product in enumerate(allegro_products):
+        actual_product_number += 1
         new_product = NewWszystkoplProduct(access_token, product)
+        print(f"Progression: {actual_product_number}/{total_products_number}")
         addProduct(access_token, complaint_police_id, guarantee_police_id, return_police_id, shipping_tariff_police_id, new_product)
     
 def addProduct(access_token, complaint_police_id, guarantee_police_id, return_police_id, shipping_tariff_police_id, allegro_product: NewWszystkoplProduct):
@@ -36,34 +39,7 @@ def addProduct(access_token, complaint_police_id, guarantee_police_id, return_po
         "categoryId": allegro_product.category_id,
         "gallery": allegro_product.images,
         "vatRate": "23%",
-        # check all required parameters
-        "parameters": [
-            {
-            "id": 2,
-            "value": allegro_product.ean
-            },
-            # {
-            # "id": 5,
-            # "value": allegro_product.sku
-            # },
-            {
-            "id": 3,
-            "value": allegro_product.sku
-            },
-            # {
-            # "id": 8,
-            # "value": allegro_product.brand
-            # },
-            {
-            "id": 1,
-            "value": 5
-            },
-            {
-            "id": 2,
-            "value": allegro_product.ean
-            },
-        ],
-        # check the scheme and img urls
+        'parameters': allegro_product.parameters,
         "description": allegro_product.description,
         "guaranteeId": guarantee_police_id,
         "complaintPolicyId": complaint_police_id,
@@ -73,65 +49,22 @@ def addProduct(access_token, complaint_police_id, guarantee_police_id, return_po
         "stockQuantityUnit": "sztuk",
         "status": "active",
         "userQuantityLimit": 100,
-        "isDraft": True, # change to false when the function will be ready
-        # "isDraft": allegro_product.is_draft
+        "isDraft": allegro_product.is_draft,
         "stockQuantity": allegro_product.stock,
         "showUnitPrice": False
         }
+    send_parameters = (f"""The request body parameters
+          ==========================================================================
+          {request_body['parameters']}
+          ==========================================================================""")
     r = requests.post(URL + END_POINT, headers=headers, json=request_body)
     if r.status_code == 200:
-        print(f"{r}\n{r.text}")
+        # print(f"{r}\\{r.text}")
+        print("Successfully added")
     else:
+        print(send_parameters)
         print(f"Something went wrong while adding the product. Check the message:\n{r}\n{r.text}")
-    
-# def addProduct(access_token, complaint_police_id, guarantee_police_id, return_police_id, shipping_tariff_police_id, allegro_product: NewWszystkoplProduct):
-#     END_POINT = '/me/offers'
-#     headers = {
-#         'Authorization': f'Bearer {access_token}',
-#         'Content-Type': 'application/json'
-#     }
-#     request_body = {
-#         "title": "Demo title for tests1",
-#         "price": 10,
-#         # "categoryId": 0,
-#         "gallery": [
-#             "https://cdn.wszystko.pl/01891b43-b5df-41cb-b2ac-a383e649c269/{size}-018a1dac-7336-423f-938c-4492a853e683.JPG"
-#         ],
-#         "vatRate": "23%",
-#         # "parameters": [
-#         #     {
-#         #     "id": 0,
-#         #     "value": "string"
-#         #     }
-#         # ],
-#         "description": [
-#             {
-#             "items": [
-#                 {
-#                 "type": "text",
-#                 "value": "string"
-#                 }
-#             ]
-#             }
-#         ],
-#         "guaranteeId": guarantee_police_id,
-#         "complaintPolicyId": complaint_police_id,
-#         "returnPolicyId": return_police_id,
-#         "shippingTariffId": shipping_tariff_police_id,
-#         "leadTime": "Natychmiast",
-#         "stockQuantityUnit": "sztuk",
-#         "status": "active",
-#         "userQuantityLimit": 100,
-#         "isDraft": True,
-#         "stockQuantity": 0,
-#         "showUnitPrice": False
-#         }
-#     r = requests.post(URL + END_POINT, headers=headers, json=request_body)
-#     if r.status_code == 200:
-#         print(f"{r}\n{r.text}")
-#     else:
-#         print(f"Something went wrong while adding the product. Check the message:\n{r}\n{r.text}")
-  
+
     
 if __name__ == "__main__":
     main()
