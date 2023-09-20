@@ -15,7 +15,7 @@ def add_required_params_with_defined_values(access_token:str, mapped_categories:
         category_params = get_category_params(access_token, category['wszystko_id'])
         parameters = []
         for parameter in category_params:
-            if parameter['required'] and parameter['id'] not in [1, 2, 3 ]:
+            if parameter['required'] and parameter['id'] not in [1, 2, 3, 277, 1184, 5 ]:
                 parameters.append({
                     "id": parameter['id'],
                     "label": parameter['label'],
@@ -28,11 +28,11 @@ def add_required_params_with_defined_values(access_token:str, mapped_categories:
                     case 1262: # Wielkość
                         parameters[-1]['ready_value'] = check_for_id_or_return_any_id([99208], values) # Produkt pełnowymiarowy
                     case 3131: # Pojemność
-                        parameters[-1]['ready_value'] = 99208104016 # brak info
+                        parameters[-1]['ready_value'] = check_for_id_or_return_any_id([99208104016], values) # brak info
                     case 8494: # Pojemność opakowania
-                        parameters[-1]['extra'] = 'pojemnosc' # to do !!!!!!!!!!!!!!!!!!!!!
+                        parameters[-1]['extra'] = 'Pojemność' # to do !!!!!!!!!!!!!!!!!!!!!
                     case 49: # Typ
-                        parameters[-1]['ready_value'] = 992088538 # inny !!!!!!!!!! also differs 8307
+                        parameters[-1]['ready_value'] = check_for_id_or_return_any_id([992088538, 8307], values) # inny !!!!!!!!!! also differs 8307
                     case 495: # model
                         parameters[-1]['ready_value'] = 'Fish' # cykady wobler
                     case 11410: # Rodzaje rzęs
@@ -68,7 +68,7 @@ def add_required_params_with_defined_values(access_token:str, mapped_categories:
                     case 2115: # forma
                         parameters[-1]['ready_value'] = check_for_id_or_return_any_id([101243], values) # inny !!!!!!! the same
                     case 15: # pojemność
-                        parameters[-1]['extra'] = 'pojemnosc' # Inne
+                        parameters[-1]['extra'] = 'Pojemność' # Inne
                     case 11417: # Szczoteczka
                         parameters[-1]['ready_value'] = check_for_id_or_return_any_id([150222], values) # Inne
                     case 3246: # Konsystencja
