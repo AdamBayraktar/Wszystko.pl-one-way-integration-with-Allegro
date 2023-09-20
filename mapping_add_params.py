@@ -6,10 +6,10 @@ from variables.mapping_auto_template_finished import mapped_categories as all_ca
 def main():
     access_token = get_access_token()
     # print(mapped_categories_with_params)
-    mapped_categories = some_func(access_token, all_categories)
+    mapped_categories = add_required_params_with_defined_values(access_token, all_categories)
     write_it_as_variable(mapped_categories, 'variables/mapping_auto_template_finished_with_params.py', 'mapped_categories')
 
-def some_func(access_token:str, mapped_categories: list[dict]):
+def add_required_params_with_defined_values(access_token:str, mapped_categories: list[dict]):
     mapped_categories_with_params = []
     for category in mapped_categories:
         category_params = get_category_params(access_token, category['wszystko_id'])
