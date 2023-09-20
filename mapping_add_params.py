@@ -97,6 +97,8 @@ def add_required_params_with_defined_values(access_token:str, mapped_categories:
                         # if it doesn't find any matching then pick random item
                     case _:
                         parameters[-1]["values"]: values
+                if parameter.get('isMultiChoice', False):
+                    parameters[-1]['ready_value'] = [parameters[-1]['ready_value']]
                         
             elif parameter['id'] in [277, 1184, 5]:
                 if parameter['id'] == 277:
