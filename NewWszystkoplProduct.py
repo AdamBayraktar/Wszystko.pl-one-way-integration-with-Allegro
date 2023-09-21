@@ -16,35 +16,24 @@ class NewWszystkoplProduct:
         self.images = [list(img.values())[0] for img in self.old_images_to_new]
         self.description = self.__adjust_scheme_description(allegro_product["description"]['sections'])
         self.ean = self.__set_parameter("EAN (GTIN)")
-        self.sku = self.__set_parameter("Kod producenta")
+        self.sku = str(self.__set_parameter("Kod producenta"))
         self.brand = self.__set_parameter("Marka")
         self.externalReferences = [{ "id": self.id, "kind": "allegro" }]
         self.externalCategories = [{"source": "allegro", "breadcrumb": [{"id": allegro_product['category']['id']}]}]
         self.externalAttributes = self.add_allegro_params(allegro_product["productSet"][0]["product"]["parameters"])
         self.price = float(allegro_product["sellingMode"]["price"]["amount"])
-        self.stock = int(allegro_product["stock"]["available"])
-        self.status = allegro_product['publication']["status"]
+        self.stock = int(allegro_product["stock"]["available"]) if int(allegro_product["stock"]["available"]) > 0 else 1
+        self.status = 'active' if allegro_product['publication']["status"].lower() == 'active' else 'ended' 
+        if self.status != 'active':
+            print(f"this should be inactive!!!\n{self.name}")
+            self.__set_as_draft()
         # check categories required params
         self.parameters = self.__set_category_parameters(self.category)
-        self.data = {
-            "name": self.name,
-            "description": self.description,
-            "ean": self.ean,
-            "sku": self.sku,
-            "externalReferences": self.externalReferences,
-            "externalCategories": self.externalCategories,
-            "externalAttributes": self.externalAttributes,
-            "images": self.images,
-            "price": self.price,
-            "stock": self.stock,
-            "dispatchTime": {"period": 1},
-            "weight": 50, 
-            "deliveryPriceList": "SMART",
-            "status": "active" if self.status.lower() == "active" else "inactive"
-        }
 
     def __set_parameter(self, name, the_type='int'):
         parameters = self.allegro_product["productSet"][0]["product"]["parameters"]
+        if name == 'SKU':
+            return self.sku
         for param in parameters:
             if param.get("name").lower() == name.lower():
                 return param["values"][0]
@@ -134,19 +123,18 @@ class NewWszystkoplProduct:
         parameters = [
             {
             "id": 2,
-            "value": self.ean
+            "value": str(self.ean)
             },
             {
             "id": 3,
             "value": self.sku
             },
-            {
-            "id": 1,
-            "value": 5
-            }
         ]
         if not category:
             return parameters
+        # the only category that does not require this parameter
+        if self.category_id != 1019:
+            parameters.append({"id": 1,"value": 5}) 
         for the_parameter in category["parameters"]:
             # add parameters with ready values
             if the_parameter.get('ready_value', False):
